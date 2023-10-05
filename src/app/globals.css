@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.main {
+  margin-left: 20%;
+  width: calc(100vw - 20%);
+  background-color: red;
+  transition: all .3s ease;
+}
+
+.mobile {
+  margin-left: 0;
+  width: 100vw;
+  background-color: red;
+  transition: all .3s ease;
+}
