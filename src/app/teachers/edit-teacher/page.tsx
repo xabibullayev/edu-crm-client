@@ -3,40 +3,46 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import axios from "axios";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function AddTeacher() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+export default function EditAuditory() {
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+  const firstname: any = searchParams.get("firstname");
+  const lastname: any = searchParams.get("lastname");
+  const phoneNumber: any = searchParams.get("phoneNumber");
+
+  const [newFirstname, setNewFirstname] = useState(firstname);
+  const [newLastname, setNewLastname] = useState(lastname);
+  const [newPhoneNumber, setNewPhoneNumber] = useState(phoneNumber);
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
 
-    const data = { firstname, lastname, phoneNumber };
+    const data = {
+      firstname: newFirstname,
+      lastname: newLastname,
+      phoneNumber: newPhoneNumber,
+    };
 
     if (process.env.API_MAIN_URL) {
       await axios
-        .post(`${process.env.API_MAIN_URL}/teachers`, data)
+        .patch(`${process.env.API_MAIN_URL}/teachers/${id}`, data)
         .then((res) => {
-          console.log(res.data);
-          toast.success("Mug'allim kiritildi!");
+          toast.success("Mug'allim jan'alandi!");
         })
         .catch((err) => {
           console.log(err);
         });
     }
-
-    setFirstname("");
-    setLastname("");
-    setPhoneNumber("");
   };
 
   return (
     <div>
       <div className="flex justify-between items-center border p-4">
-        <h1>Add New Teacher</h1>
+        <h1>Mug'allim magliwmatlarin o'zgertiw</h1>
         <Link
           href="/teachers"
           className="bg-blue-600 text-white px-6 py-2 rounded-md"
@@ -49,22 +55,22 @@ export default function AddTeacher() {
         <Input
           type="text"
           placeholder="Ati"
-          value={firstname}
-          onChange={setFirstname}
+          value={newFirstname}
+          onChange={setNewFirstname}
         />
         <Input
           type="text"
           placeholder="Familiyasi"
-          value={lastname}
-          onChange={setLastname}
+          value={newLastname}
+          onChange={setNewLastname}
         />
         <Input
           type="text"
           placeholder="Telefon nomeri"
-          value={phoneNumber}
-          onChange={setPhoneNumber}
+          value={newPhoneNumber}
+          onChange={setNewPhoneNumber}
         />
-        <Button title="Kiritiw" />
+        <Button title="O'zgertiw" />
       </form>
     </div>
   );

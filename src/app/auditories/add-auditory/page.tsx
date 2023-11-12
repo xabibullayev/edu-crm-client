@@ -6,39 +6,34 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function AddTeacher() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+export default function AddAuditory() {
+  const [title, setTitle] = useState("");
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
 
-    const data = { firstname, lastname, phoneNumber };
+    const data = { title };
 
     if (process.env.API_MAIN_URL) {
       await axios
-        .post(`${process.env.API_MAIN_URL}/teachers`, data)
+        .post(`${process.env.API_MAIN_URL}/auditories`, data)
         .then((res) => {
-          console.log(res.data);
-          toast.success("Mug'allim kiritildi!");
+          toast.success("Auditoriya kiritildi!");
         })
         .catch((err) => {
           console.log(err);
         });
     }
 
-    setFirstname("");
-    setLastname("");
-    setPhoneNumber("");
+    setTitle("");
   };
 
   return (
     <div>
       <div className="flex justify-between items-center border p-4">
-        <h1>Add New Teacher</h1>
+        <h1>Taza auditoriya kiritiw</h1>
         <Link
-          href="/teachers"
+          href="/auditories"
           className="bg-blue-600 text-white px-6 py-2 rounded-md"
         >
           Dizimge qaytiw
@@ -49,20 +44,8 @@ export default function AddTeacher() {
         <Input
           type="text"
           placeholder="Ati"
-          value={firstname}
-          onChange={setFirstname}
-        />
-        <Input
-          type="text"
-          placeholder="Familiyasi"
-          value={lastname}
-          onChange={setLastname}
-        />
-        <Input
-          type="text"
-          placeholder="Telefon nomeri"
-          value={phoneNumber}
-          onChange={setPhoneNumber}
+          value={title}
+          onChange={setTitle}
         />
         <Button title="Kiritiw" />
       </form>

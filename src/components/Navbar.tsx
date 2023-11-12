@@ -12,11 +12,11 @@ type Props = {
 export default function Navbar({ isSidebarOpen, setIsSidebarOpen }: Props) {
   return (
     <div className="bg-white h-16 p-4 flex items-center justify-between shadow-main">
-      <div className="hover:bg-slate-200 rounded-full p-2 cursor-pointer">
-        <MenuIcon
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          style={{ fontSize: "30px" }}
-        />
+      <div
+        className="hover:bg-slate-200 rounded-full p-2 cursor-pointer"
+        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      >
+        <MenuIcon style={{ fontSize: "30px" }} />
       </div>
 
       <div className="flex items-center gap-2">

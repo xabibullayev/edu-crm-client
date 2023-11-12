@@ -1,5 +1,3 @@
 export default function Lids() {
-    return (
-        <div>Lids</div>
-    )
+  return <div>Lidler</div>;
 }

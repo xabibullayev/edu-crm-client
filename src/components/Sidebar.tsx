@@ -7,6 +7,7 @@ import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import BurstModeIcon from "@mui/icons-material/BurstMode";
 import GroupIcon from "@mui/icons-material/Group";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
+import PaymentsIcon from "@mui/icons-material/Payments";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -39,13 +40,19 @@ function Sidebar(
       url: "/auditories",
       icon: <MeetingRoomIcon />,
     },
+    {
+      id: 8,
+      title: "To'lemler",
+      url: "/payments",
+      icon: <PaymentsIcon />,
+    },
   ];
 
   const styles = {
     openedSidebar:
-      "w-[280px] bg-slate-800 text-white h-screen fixed left-0 transition-all duration-300 ease",
+      "w-[280px] bg-slate-800 text-white h-screen fixed left-0 transition-all duration-300 ease z-10",
     closedSidebar:
-      "w-[280px] bg-slate-800 text-white h-screen fixed -left-[280px] transition-all duration-300 ease",
+      "w-[280px] bg-slate-800 text-white h-screen fixed -left-[280px] transition-all duration-300 ease z-10",
   };
 
   return (
@@ -53,7 +60,7 @@ function Sidebar(
       ref={ref}
       className={isSidebarOpen ? styles.openedSidebar : styles.closedSidebar}
     >
-      <div className="flex items-center gap-4 p-6">
+      <div className="flex items-center gap-4 p-6 ">
         <img src="/images/logo.png" alt="Logo" />
         <h1 className="text-xl font-medium">EDU - CRM</h1>
       </div>
@@ -68,7 +75,7 @@ function Sidebar(
             }
             className={`${
               pathname === link.url && "bg-gray-500"
-            } w-full hover:bg-gray-600 inline-block p-2 rounded-md`}
+            } w-full hover:bg-gray-600 inline-block p-2 rounded-md z-20`}
           >
             <li className="flex items-center gap-3">
               {link.icon}

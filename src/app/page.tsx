@@ -1,8 +1,3 @@
-
 export default function Home() {
-  return (
-    <div>
-      fadsfsad
-    </div>
-  )
+  return <div>Statistika</div>;
 }

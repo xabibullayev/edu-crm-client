@@ -11,12 +11,12 @@ import { useState } from "react";
 type Props = {
   columns: GridColDef[];
   rows: Array<{}>;
+  keys: string[];
+  url: string;
 };
 
-export default function DataTable({ columns, rows }: Props) {
+export default function DataTable({ columns, rows, keys, url }: Props) {
   const [query, setQuery] = useState("");
-
-  const keys = ["firstname", "lastname", "phone_number"];
 
   const CustomToolbar = () => {
     return (
@@ -28,7 +28,7 @@ export default function DataTable({ columns, rows }: Props) {
 
   const search = (data: any) => {
     return data.filter((item: any) =>
-      keys.some((key) => {
+      keys?.some((key) => {
         if (item[key] !== null) {
           return item[key].toString().toLowerCase().includes(query);
         }
@@ -37,7 +37,7 @@ export default function DataTable({ columns, rows }: Props) {
   };
 
   return (
-    <div className="w-full bg-white">
+    <div className={`${rows.length <= 0 && "h-[200px]"}  w-full bg-white`}>
       <div className="flex justify-between items-center p-4 border">
         <input
           type="text"
@@ -47,7 +47,7 @@ export default function DataTable({ columns, rows }: Props) {
         />
 
         <Link
-          href="/teachers/add-teacher"
+          href={url}
           className="border bg-blue-500 text-white py-2 px-6 rounded-md"
         >
           Add new
@@ -55,6 +55,8 @@ export default function DataTable({ columns, rows }: Props) {
       </div>
 
       <DataGrid
+        // checkboxSelection
+        disableRowSelectionOnClick
         rows={search(rows)}
         columns={columns}
         getRowId={(row: any) => row._id}
@@ -64,7 +66,10 @@ export default function DataTable({ columns, rows }: Props) {
           },
         }}
         pageSizeOptions={[10, 25, 50, 100]}
-        checkboxSelection
+        localeText={{
+          noRowsLabel: "Magliwmat bazasi bos",
+          toolbarExportCSV: "CSV faylga juklep aliw",
+        }}
         slots={{
           toolbar: CustomToolbar,
         }}

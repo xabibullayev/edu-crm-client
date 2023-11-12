@@ -6,31 +6,30 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-export default function AddTeacher() {
-  const [firstname, setFirstname] = useState("");
-  const [lastname, setLastname] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
+export default function AddCourse() {
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [duration, setDuration] = useState("");
 
   const submitHandler = async (e: any) => {
     e.preventDefault();
 
-    const data = { firstname, lastname, phoneNumber };
+    const data = { title, price, duration };
 
     if (process.env.API_MAIN_URL) {
       await axios
-        .post(`${process.env.API_MAIN_URL}/teachers`, data)
+        .post(`${process.env.API_MAIN_URL}/course`, data)
         .then((res) => {
-          console.log(res.data);
-          toast.success("Mug'allim kiritildi!");
+          toast.success("Kurs kiritildi!");
         })
         .catch((err) => {
           console.log(err);
         });
     }
 
-    setFirstname("");
-    setLastname("");
-    setPhoneNumber("");
+    setTitle("");
+    setPrice("");
+    setDuration("");
   };
 
   return (
@@ -38,7 +37,7 @@ export default function AddTeacher() {
       <div className="flex justify-between items-center border p-4">
         <h1>Add New Teacher</h1>
         <Link
-          href="/teachers"
+          href="/courses"
           className="bg-blue-600 text-white px-6 py-2 rounded-md"
         >
           Dizimge qaytiw
@@ -48,21 +47,21 @@ export default function AddTeacher() {
       <form onSubmit={submitHandler} className="border p-4 min-h-[70vh]">
         <Input
           type="text"
-          placeholder="Ati"
-          value={firstname}
-          onChange={setFirstname}
+          placeholder="Kurs atamasi"
+          value={title}
+          onChange={setTitle}
         />
         <Input
-          type="text"
-          placeholder="Familiyasi"
-          value={lastname}
-          onChange={setLastname}
+          value={price}
+          type="number"
+          placeholder="Bahasi"
+          onChange={setPrice}
         />
         <Input
-          type="text"
-          placeholder="Telefon nomeri"
-          value={phoneNumber}
-          onChange={setPhoneNumber}
+          type="number"
+          placeholder="Dawamiylig'i"
+          value={duration}
+          onChange={setDuration}
         />
         <Button title="Kiritiw" />
       </form>
